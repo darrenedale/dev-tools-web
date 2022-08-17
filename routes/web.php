@@ -13,3 +13,4 @@ use Equit\WebApplication;
 $router->registerGet("/", [HomeController::class, "showHomePage"]);
 
 $router->registerGet("/hashes/random/{algorithm}", [HashesController::class, "showRandomHash"]);
+$router->registerGet("/hashes/{algorithm}", [HashesController::class, "showContentHash"]);

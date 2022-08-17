@@ -1,0 +1,23 @@
+@use "../includes/dimensions";
+@use "../includes/colours";
+
+.notifications-container
+{
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin: dimensions.$margin;
+  z-index: 1000;
+
+  .notification
+  {
+    box-sizing: border-box;
+    margin-bottom: dimensions.$margin;
+    background: rgba(0, 0, 0, 0.66);
+    padding: dimensions.$largePadding;
+    width: 200px;
+    color: colours.$notQuiteWhite;
+    font-size: dimensions.$smallTextSize;
+    border-radius: dimensions.$borderRadius;
+  }
+}

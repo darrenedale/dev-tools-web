@@ -1,0 +1,64 @@
+@use "../includes/dimensions";
+@use "../includes/colours";
+
+html, body
+{
+  margin: 0;
+  font-family: sans-serif;
+  font-size: dimensions.$regularTextSize;
+}
+
+header
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 20px;
+  background-color: colours.$headerBackground;
+  color: colours.$headerText;
+}
+
+.invisible
+{
+  opacity: 0.0;
+}
+
+.appearing
+{
+  transition: opacity 250ms ease-in-out;
+  opacity: 1.0;
+}
+
+.disappearing
+{
+  transition: opacity 250ms ease-in-out;
+  opacity: 0.0;
+}
+
+.main
+{
+  padding: 30px;
+
+  button
+  {
+    border: none;
+    box-sizing: border-box;
+    padding: dimensions.$padding;
+    min-width: 30px;
+    border-radius: dimensions.$borderRadius;
+    cursor: pointer;
+    background-color: colours.$actionBackgroundColour;
+    color: colours.$actionTextColour;
+    transition: background-color 150ms ease-in-out;
+
+    &:hover
+    {
+      background-color: colours.$activeActionBackgroundColour;
+    }
+
+    &:disabled
+    {
+      background-color: colours.$disabledActionBackgroundColour;
+      color: colours.$disabledActionTextColour;
+    }
+  }
+}

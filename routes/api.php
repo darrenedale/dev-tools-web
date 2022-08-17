@@ -10,3 +10,4 @@ use Equit\WebApplication;
  */
 
 $router->registerGet("/api/hashes/{algorithm}/random", [HashesController::class, "sendRandomHash"]);
+$router->registerPost("/api/hashes/{algorithm}/hash", [HashesController::class, "hashContent"]);

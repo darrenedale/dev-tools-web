@@ -6,7 +6,7 @@ use Equit\View;
 <head>
     <title>Useful Dev Tools</title>
     <?php View::stack("scripts"); ?>
-    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/dev-tools.css" />
     <link rel="stylesheet" href="/styles/fontawesome/css/regular.css" />
     <link rel="stylesheet" href="/styles/fontawesome/css/solid.css" />
     <link rel="stylesheet" href="/styles/fontawesome/css/brands.css" />

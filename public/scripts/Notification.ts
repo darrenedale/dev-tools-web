@@ -5,7 +5,7 @@ export class Notification
     public static readonly DefaultDuration = 5000;
     private static m_container?: HTMLElement;
 
-    private m_element: HTMLElement;
+    private readonly m_element: HTMLElement;
     private m_duration: number;
 
     private constructor(content: NotificationContent, duration: number, className: string) {
@@ -28,6 +28,12 @@ export class Notification
 
     public show(): void
     {
+        this.m_element.classList.add("invisible");
+        window.setTimeout(() => {
+                this.m_element.classList.add("appearing");
+                this.m_element.classList.remove("invisible");
+            },
+            50);
         Notification.m_container.append(this.m_element);
         window.setTimeout(() => this.hide(), Notification.DefaultDuration)
     }
@@ -35,7 +41,9 @@ export class Notification
 
     public hide(): void
     {
-        this.m_element.remove();
+        this.m_element.classList.add("disappearing");
+        this.m_element.addEventListener("transitionend", () => this.m_element.remove(), {once: true});
+        // this.m_element.remove();
     }
 
     protected createElement(): HTMLElement

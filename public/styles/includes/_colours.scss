@@ -1,0 +1,29 @@
+$skyBlue: #4488dd;
+$fadedNavyBlue: #444466;
+$brightYellow: #ffff00;
+$brightCyan: #88ffff;
+$notQuiteWhite: #eeeeee;
+$inactivedGrey: #888888;
+
+$genericDarkTranslucent: rgba(0, 0, 0, 0.25);
+$genericLightTranslucent: rgba(255, 255, 255, 0.25);
+
+// action items
+$actionBackgroundColour: $skyBlue;
+$activeActionBackgroundColour: $fadedNavyBlue;
+$actionTextColour: white;
+$activeActionTextColour: $brightYellow;
+$disabledActionBackgroundColour: $inactivedGrey;
+$disabledActionTextColour: $notQuiteWhite;
+
+$headerBackground: $skyBlue;
+$headerText: white;
+
+$mainNavTextColour: $notQuiteWhite;
+$mainNavSubTextColour: $notQuiteWhite;
+$mainNavHoverTextColour: $activeActionTextColour;
+$mainNavSubHoverTextColour: $mainNavHoverTextColour;
+$mainNavBackgroundColour: $fadedNavyBlue;
+$mainNavSubBackgroundColour: $mainNavBackgroundColour;
+$mainNavHoverBackgroundColour: inherit;
+$mainNavSubHoverBackgroundColour: $genericDarkTranslucent;

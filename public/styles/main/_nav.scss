@@ -1,0 +1,89 @@
+@use "../includes/colours";
+@use "../includes/dimensions";
+
+$subItemWidth: 150px;
+
+.main-nav
+{
+  width: 100%;
+  background-color: colours.$mainNavBackgroundColour;
+  display: block;
+  color: colours.$mainNavTextColour;
+  padding: dimensions.$padding;
+  box-sizing: border-box;
+
+  a
+  {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul
+  {
+    box-sizing: border-box;
+    padding: dimensions.$padding;
+    list-style: none;
+    margin: 0;
+  }
+
+  > ul
+  {
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+
+    > li
+    {
+      &:hover
+      {
+        color: colours.$mainNavHoverTextColour;
+        background-color: colours.$mainNavHoverBackgroundColour;
+
+        > ul
+        {
+          display: block;
+        }
+      }
+    }
+
+    li
+    {
+      padding: dimensions.$padding;
+
+      > ul
+      {
+        position: absolute;
+        display: none;
+        background-color: colours.$mainNavSubBackgroundColour;
+        max-height: 800px;
+        overflow: visible;
+        min-width: $subItemWidth;
+        font-size: smaller;
+        box-shadow: 0 0 25px black;
+
+        li
+        {
+          display: flex;
+          flex-flow: row;
+          align-items: flex-start;
+          align-content: flex-start;
+          overflow: visible;
+          color: colours.$mainNavSubTextColour;
+
+          &:hover
+          {
+            color: colours.$mainNavSubHoverTextColour;
+            background-color: colours.$mainNavSubHoverBackgroundColour;
+
+            ul
+            {
+              left: $subItemWidth - 25px;
+              display: inline-flex;
+              flex-flow: column nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}

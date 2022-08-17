@@ -13,28 +13,28 @@ View::layout("layouts.main");
 ?>
 
 <?php View::push("scripts"); ?>
-<script type="module" src="/scripts/RandomHash.js"></script>
+<script type="module" src="/scripts/ContentHash.js"></script>
 <?php View::endPush(); ?>
 
 <?php View::section("head-title"); ?>
-Random MD5
+Calculate <?= html($algorithm) ?>
 <?php
 View::endSection();
 View::section("page-title");
 ?>
-Random <?= html(mb_strtoupper($algorithm)) ?>
+Calculate <?= html(mb_strtoupper($algorithm)) ?>
 <?php View::endSection(); ?>
 
 <?php View::section("content"); ?>
-<div class="hash-container random-hash" data-algorithm="<?= html($algorithm) ?>">
+<div class="hash-container content-hash" data-algorithm="<?= html($algorithm) ?>" data-csrf="<?= html($app->csrf()) ?>">
+    <textarea class="hash-source" title="The content to hash." placeholder="Enter some content to hash..."><?= html($content ?? "") ?></textarea>
     <div class="hash-display-container">
-        <div class="hash-display"><?= html($hash ?? "") ?></div>
+        <div class="hash-display"><?= html($hash ?? "<no hash>") ?></div>
         <span>
-            <input id="random-hash-<?= html($algorithm) ?>-upper" class="hash-upper" type="checkbox" />
-            <label for="random-hash-<?= html($algorithm) ?>-upper">Upper case</label>
+            <input id="content-hash-<?= html($algorithm) ?>-upper" class="hash-upper" type="checkbox" />
+            <label for="content-hash-<?= html($algorithm) ?>-upper">Upper case</label>
         </span>
         <button class="hash-copy" title="Copy this <?= html($algorithm) ?> hash to clipboard."><span class="fa-regular fa-copy"></span></button>
-        <button class="hash-refresh" title="Generate a new random <?= html($algorithm) ?> hash."><span class="fa-solid fa-repeat"></span></button>
     </div>
 </div>
 <?php View::endSection(); ?>

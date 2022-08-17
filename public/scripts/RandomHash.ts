@@ -3,10 +3,10 @@ import { Notification } from "./Notification.js";
 class RandomHash
 {
     public static readonly HostDomClass = "random-hash";
-    private static readonly UpperCaseDomClass = "random-hash-upper";
-    private static readonly RefreshDomClass = "random-hash-refresh";
-    private static readonly CopyDomClass = "random-hash-copy";
-    private static readonly DisplayDomClass = "random-hash-display";
+    private static readonly UpperCaseDomClass = "hash-upper";
+    private static readonly RefreshDomClass = "hash-refresh";
+    private static readonly CopyDomClass = "hash-copy";
+    private static readonly DisplayDomClass = "hash-display";
 
     private readonly m_host: HTMLElement;
     private readonly m_algorithm: string;
@@ -92,7 +92,7 @@ class RandomHash
 
     protected onCopyClicked(event: MouseEvent): void {
         navigator.clipboard.writeText(this.m_display.innerText)
-            .then(() => Notification.information(`${this.algorithm} hash '${this.hash}' copied to clipboard.`));
+            .then(() => Notification.information(`The ${this.algorithm} hash has been copied to the clipboard.`));
     }
 
     protected onRefreshClicked(event: MouseEvent): void {

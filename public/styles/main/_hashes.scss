@@ -1,0 +1,43 @@
+@use "../includes/dimensions";
+
+.hash-container
+{
+  textarea
+  {
+    display: block;
+    min-width: 40em;
+    min-height: 10em;
+    margin-bottom: dimensions.$margin;
+  }
+
+  .hash-display-container
+  {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+    row-gap: dimensions.$margin;
+    column-gap: dimensions.$margin;
+
+    .hash-display
+    {
+      box-sizing: border-box;
+      font-family: monospace;
+      font-size: larger;
+      padding: dimensions.$padding dimensions.$largePadding;
+      border-radius: dimensions.$borderRadius;
+      background: rgba(0, 0, 0, 0.1);
+      //margin-right: 10px;
+      //margin-bottom: 10px;
+      min-width: 2em;
+      min-height: 1em;
+      overflow-x: auto;
+    }
+
+    button
+    {
+      margin-left: 5px;
+    }
+  }
+}
