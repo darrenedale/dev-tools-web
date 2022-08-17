@@ -1,0 +1,24 @@
+.random-hash
+{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: center;
+
+  .random-hash-display
+  {
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: larger;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+  }
+
+  button
+  {
+    margin-left: 5px;
+  }
+}
