@@ -22,4 +22,39 @@
             <?php endforeach; ?>
         </ul>
     </li>
+    <li>
+        <a href="/regex/tester">Regex</a>
+        <ul>
+            <li>
+                <a href="/regex/tester">Regex Tester</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="/codec/base64">Codecs</a>
+        <ul>
+            <li>
+                <a href="/codec/base64">Base64</a>
+                <ul>
+                    <li>
+                        <a href="/codec/base64">Encoder/Decoder</a>
+                    </li>
+                    <li>
+                        <a href="/decoder/base64">Decode file</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/codec/base32">Base32</a>
+                <ul>
+                    <li>
+                        <a href="/codec/base32">Encoder/Decoder</a>
+                    </li>
+                    <li>
+                        <a href="/decoder/base32">Decode file</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 </ul>

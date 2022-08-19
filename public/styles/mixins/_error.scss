@@ -1,0 +1,21 @@
+@use "../includes/colours";
+
+@mixin error-background
+{
+  background-color: colours.$errorBackground;
+}
+
+@mixin error-foreground
+{
+  color: colours.$errorText;
+}
+
+@mixin error-border($thickness: 1px)
+{
+  border: $thickness solid colours.$errorText;
+}
+
+@mixin error-outline($thickness: 1px)
+{
+  outline: $thickness solid colours.$errorText;
+}

@@ -27,6 +27,7 @@ use Equit\View;
         <h2><?php View::yieldSection("page-title"); ?></h2>
     <?php endif; ?>
 
+    <?php View::include("includes.messages") ?>
     <?php View::yieldSection("content"); ?>
 </section>
 

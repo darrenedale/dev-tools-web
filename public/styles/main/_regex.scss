@@ -1,0 +1,52 @@
+@use "../includes/dimensions";
+@use "../includes/colours";
+@use "../mixins/error";
+@use "../mixins/success";
+
+.regex-tester
+{
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: dimensions.$margin;
+
+  input
+  {
+    width: 350px;
+
+    &.regex
+    {
+      &.error {
+        @include error.error-background;
+      }
+    }
+
+    &.test-string
+    {
+      &.regex-no-match
+      {
+        @include error.error-background;
+      }
+
+      &.regex-match
+      {
+        @include success.success-background;
+      }
+    }
+  }
+
+  .result
+  {
+    min-width: 30px;
+    text-align: center;
+
+    &.fa-check
+    {
+      color: colours.$successText;
+    }
+
+    &.fa-xmark
+    {
+      color: colours.$errorText;
+    }
+  }
+}

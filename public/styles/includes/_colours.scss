@@ -4,9 +4,19 @@ $brightYellow: #ffff00;
 $brightCyan: #88ffff;
 $notQuiteWhite: #eeeeee;
 $inactivedGrey: #888888;
+$paleRed: #ffdddd;
+$boldRed: #cc4444;
+$paleGreen: #ddffdd;
+$boldGreen: #44cc44;
 
 $genericDarkTranslucent: rgba(0, 0, 0, 0.25);
 $genericLightTranslucent: rgba(255, 255, 255, 0.25);
+
+// status
+$errorBackground: $paleRed;
+$errorText: $boldRed;
+$successBackground: $paleGreen;
+$successText: $boldGreen;
 
 // action items
 $actionBackgroundColour: $skyBlue;

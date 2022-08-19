@@ -1,0 +1,21 @@
+@use "../includes/colours";
+
+@mixin success-background
+{
+  background-color: colours.$successBackground;
+}
+
+@mixin success-foreground
+{
+  color: colours.$successText;
+}
+
+@mixin success-border($thickness: 1px)
+{
+  border: $thickness solid colours.$successText;
+}
+
+@mixin success-outline($thickness: 1px)
+{
+  outline: $thickness solid colours.$successText;
+}

@@ -205,4 +205,18 @@ class ApiResponse implements Response
             "payload" => $this->payloadJson(),
         ]);
     }
+
+
+    /**
+     * Convenience factory method to provide an error response.
+     *
+     * @param string $message The error message.
+     * @param int $customCode The custom error code. Defaults to CodeError if not given.
+     *
+     * @return ApiResponse The response.
+     */
+    public static function error(string $message, int $customCode = self::CodeError): ApiResponse
+    {
+        return new static(null, $customCode, $message);
+    }
 }

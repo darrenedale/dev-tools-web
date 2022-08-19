@@ -6,6 +6,7 @@ html, body
   margin: 0;
   font-family: sans-serif;
   font-size: dimensions.$regularTextSize;
+  background-color: #ddeeff;
 }
 
 header
@@ -15,6 +16,21 @@ header
   padding: 5px 20px;
   background-color: colours.$headerBackground;
   color: colours.$headerText;
+}
+
+input
+{
+  &[type=text],
+  &[type=email],
+  &[type=search],
+  &[type=password]
+  {
+    border: 2px solid #444;
+    border-radius: dimensions.$borderRadius;
+    background-color: white;
+    height: 1em;
+    padding: dimensions.$padding;
+  }
 }
 
 .invisible
@@ -42,7 +58,7 @@ header
   {
     border: none;
     box-sizing: border-box;
-    padding: dimensions.$padding;
+    padding: dimensions.$padding dimensions.$largePadding;
     min-width: 30px;
     border-radius: dimensions.$borderRadius;
     cursor: pointer;

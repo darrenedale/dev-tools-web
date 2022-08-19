@@ -8,7 +8,8 @@ export class Notification
     private readonly m_element: HTMLElement;
     private m_duration: number;
 
-    private constructor(content: NotificationContent, duration: number, className: string) {
+    private constructor(content: NotificationContent, duration: number, className: string)
+    {
         if (undefined === Notification.m_container) {
             Notification.createContainer();
         }
@@ -29,7 +30,8 @@ export class Notification
     public show(): void
     {
         this.m_element.classList.add("invisible");
-        window.setTimeout(() => {
+        window.setTimeout(() =>
+            {
                 this.m_element.classList.add("appearing");
                 this.m_element.classList.remove("invisible");
             },

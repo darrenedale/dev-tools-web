@@ -1,0 +1,28 @@
+@use "../includes/dimensions";
+
+.codec-container
+{
+  textarea
+  {
+    display: block;
+    min-width: 40em;
+    min-height: 10em;
+  }
+
+  .codec-content-container
+  {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    row-gap: dimensions.$margin;
+    column-gap: dimensions.$margin;
+    margin-bottom: dimensions.$largeMargin;
+
+    button
+    {
+      margin-left: 5px;
+    }
+  }
+}

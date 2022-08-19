@@ -1,0 +1,24 @@
+@use "../includes/dimensions";
+
+.decoder-container
+{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  row-gap: dimensions.$margin;
+  column-gap: dimensions.$margin;
+  margin-bottom: dimensions.$largeMargin;
+
+  textarea
+  {
+    min-width: 40em;
+    min-height: 10em;
+  }
+
+  button
+  {
+    margin-right: 5px;
+  }
+}

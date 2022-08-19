@@ -31,6 +31,7 @@ $subItemWidth: 150px;
     display: flex;
     flex-flow: row nowrap;
     position: relative;
+    column-gap: dimensions.$margin;
 
     > li
     {
