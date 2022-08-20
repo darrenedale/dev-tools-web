@@ -22,3 +22,5 @@ $router->registerGet("/regex/tester", [RegexController::class, "showRegexTester"
 $router->registerGet("/codec/{algorithm}", [CodecsController::class, "showCodec"]);
 $router->registerGet("/decoder/{algorithm}", [CodecsController::class, "showDecoder"]);
 $router->registerPost("/decoder/{algorithm}", [CodecsController::class, "decodeFile"]);
+$router->registerGet("/encoder/{algorithm}", [CodecsController::class, "showEncoder"]);
+$router->registerPost("/encoder/{algorithm}", [CodecsController::class, "encodeFile"]);

@@ -33,28 +33,22 @@
     <li>
         <a href="/codec/base64">Codecs</a>
         <ul>
+            <?php foreach(["base64", "base32",] as $algorithm): ?>
             <li>
-                <a href="/codec/base64">Base64</a>
+                <a href="/codec/<?= $algorithm ?>"><?= ucfirst($algorithm) ?></a>
                 <ul>
                     <li>
-                        <a href="/codec/base64">Encoder/Decoder</a>
+                        <a href="/codec/<?= $algorithm ?>">Live Encoder/Decoder</a>
                     </li>
                     <li>
-                        <a href="/decoder/base64">Decode file</a>
+                        <a href="/decoder/<?= $algorithm ?>">Decode file</a>
+                    </li>
+                    <li>
+                        <a href="/encoder/<?= $algorithm ?>">Encode file</a>
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="/codec/base32">Base32</a>
-                <ul>
-                    <li>
-                        <a href="/codec/base32">Encoder/Decoder</a>
-                    </li>
-                    <li>
-                        <a href="/decoder/base32">Decode file</a>
-                    </li>
-                </ul>
-            </li>
+            <?php endforeach; ?>
         </ul>
     </li>
 </ul>

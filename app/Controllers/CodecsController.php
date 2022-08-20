@@ -27,6 +27,11 @@ class CodecsController
         return new View("decoder", compact("algorithm"));
     }
 
+    public function showEncoder(Request $request, string $algorithm): Response
+    {
+        return new View("encoder", compact("algorithm"));
+    }
+
     public function decode(Request $request, string $algorithm): Response
     {
         $validator = new Validator(
@@ -49,6 +54,25 @@ class CodecsController
             return (new ApiResponse(Hexit::encode($codec->raw())));
         } catch (InvalidArgumentException $err) {
             return ApiResponse::error($err->getMessage());
+        }
+    }
+
+    public function encodeFile(Request $request, string $algorithm): Response
+    {
+        $file = $request->uploadedFile("file");
+
+        if (!isset($file)) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", ["No file to encode."]);
+            return new View("encoder", compact("algorithm"));
+        }
+
+        try {
+            $codec = self::codecForAlgorithm($algorithm);
+            $codec->setRaw($file->data());
+            return (new DownloadResponse($codec->encoded()))->named(($file->name() ?? "uploaded-file") . ".{$algorithm}");
+        } catch (InvalidArgumentException $err) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", [$err->getMessage()]);
+            return new View("encoder", compact("algorithm"));
         }
     }
 
