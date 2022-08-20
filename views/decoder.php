@@ -18,12 +18,12 @@ View::layout("layouts.main");
 <?php View::endPush(); ?>
 
 <?php View::section("head-title"); ?>
-Decode <?= html($algorithm) ?> file
+Decode <?= html(mb_convert_case($algorithm, MB_CASE_TITLE)) ?> file
 <?php
 View::endSection();
 View::section("page-title");
 ?>
-Decode <?= html(mb_strtoupper($algorithm)) ?> file
+Decode <?= html(mb_convert_case($algorithm, MB_CASE_TITLE)) ?> file
 <?php View::endSection(); ?>
 
 <?php View::section("content"); ?>
