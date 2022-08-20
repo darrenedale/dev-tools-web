@@ -5,6 +5,7 @@ use App\Controllers\HashesController;
 use App\Controllers\HomeController;
 use App\Controllers\RegexController;
 use Equit\Contracts\Router;
+use Equit\View;
 use Equit\WebApplication;
 
 /**
@@ -24,3 +25,5 @@ $router->registerGet("/decoder/{algorithm}", [CodecsController::class, "showDeco
 $router->registerPost("/decoder/{algorithm}", [CodecsController::class, "decodeFile"]);
 $router->registerGet("/encoder/{algorithm}", [CodecsController::class, "showEncoder"]);
 $router->registerPost("/encoder/{algorithm}", [CodecsController::class, "encodeFile"]);
+
+$router->registerGet("/timestamp/convert", fn() => new View("timestamp", ["timestamp" => time(),]));
