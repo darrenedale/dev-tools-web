@@ -15,7 +15,7 @@ use Equit\View;
 </head>
 <body>
 <header>
-    <h1>Dev Tools</h1>
+    <h1><a href="/">Dev Tools</a></h1>
 </header>
 
 <nav class="main-nav">
