@@ -18,12 +18,12 @@ View::layout("layouts.main");
 <?php View::endPush(); ?>
 
 <?php View::section("head-title"); ?>
-Encode <?= html($algorithm) ?> file
+Encode file using <?= html($algorithm) ?>
 <?php
 View::endSection();
 View::section("page-title");
 ?>
-Encode <?= html(mb_strtoupper($algorithm)) ?> file
+Encode file using <?= html(mb_strtoupper($algorithm)) ?>
 <?php View::endSection(); ?>
 
 <?php View::section("content"); ?>
