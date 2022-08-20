@@ -33,8 +33,8 @@ Regex Tester
     </div>
     <div class="regex-test-string-container">
         <input class="test-string" type="text" placeholder="Test text..." title="Enter some text to test the regular expression..."/>
-        <span class="result fa-solid fa-check"></span>
         <button class="test-string-copy" title="Copy this test text to clipboard."><span class="fa-regular fa-copy"></span></button>
+        <span class="result fa-solid fa-check"></span>
     </div>
 </div>
 <?php View::endSection(); ?>
