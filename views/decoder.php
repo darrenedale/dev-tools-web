@@ -28,7 +28,7 @@ Decode <?= html(mb_convert_case($algorithm, MB_CASE_TITLE)) ?> file
 
 <?php View::section("content"); ?>
 <form action="/decoder/<?= html($algorithm) ?>/" method="POST">
-    <div class="decoder-container" data-algorithm="<?= html($algorithm) ?>" data-csrf="<?= html($app->csrf()) ?>">
+    <div class="decoder-container" data-algorithm="<?= html($algorithm) ?>">
         <?php View::csrf() ?>
         <textarea name="content" class="decoder-content" title="The content to decode." placeholder="Enter some <?= html($algorithm) ?> content to decode..."><?= html($raw ?? "") ?></textarea>
         <span>

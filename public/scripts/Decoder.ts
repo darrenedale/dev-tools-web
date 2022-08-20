@@ -6,7 +6,6 @@ class Decoder
     private static readonly ClearButtonDomClass = "decoder-clear";
 
     private readonly m_host: HTMLElement;
-    private readonly m_csrf: string;
     private readonly m_algorithm: string;
     private readonly m_content: HTMLTextAreaElement;
     private readonly m_decode: HTMLButtonElement;
@@ -16,7 +15,6 @@ class Decoder
     {
         this.m_host = host;
         this.m_algorithm = host.dataset.algorithm;
-        this.m_csrf = host.dataset.csrf;
         this.m_content = host.querySelector(`textarea.${Decoder.ContentDomClass}`);
         this.m_decode = host.querySelector(`button.${Decoder.DecodeButtonDomClass}`);
         this.m_clear = host.querySelector(`button.${Decoder.ClearButtonDomClass}`);
