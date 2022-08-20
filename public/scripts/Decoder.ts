@@ -67,44 +67,16 @@ class Decoder
         }
     }
 
-    // private static saveDecodedContent(decoded: Blob): void
-    // {
-    //     const url = window.URL.createObjectURL(decoded);
-    //     window.location.href = url;
-    // }
-    //
     protected onContentKeyPressed(event: KeyboardEvent): void
     {
         this.syncButtonStates();
     }
-
-    // protected onDecodedReceived(response: Response): void
-    // {
-    //     if (!response.ok) {
-    //         Notification.error("The content could not be decoded.");
-    //         return;
-    //     }
-    //
-    //     response.blob().then(Decoder.saveDecodedContent);
-    // }
 
     protected onClearClicked(event: MouseEvent): void
     {
         this.content = "";
     }
 
-    // protected onDecodeClicked(event: MouseEvent): void
-    // {
-    //     const data = new FormData();
-    //     data.set("_token", this.m_csrf);
-    //     data.set("content", this.content);
-    //     fetch("/decoder/" + encodeURIComponent(this.algorithm), {
-    //         method: 'POST',
-    //         body: data,
-    //     })
-    //         .then((response: Response) => this.onDecodedReceived(response));
-    // }
-    //
     public static bootstrap(): void
     {
         document.querySelectorAll(`.${Decoder.HostDomClass}`).forEach((host: HTMLElement) => new Decoder(host));
