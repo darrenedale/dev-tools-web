@@ -27,10 +27,11 @@ Decode <?= html(mb_convert_case($algorithm, MB_CASE_TITLE)) ?> file
 <?php View::endSection(); ?>
 
 <?php View::section("content"); ?>
-<form action="/decoder/<?= html($algorithm) ?>/" method="POST">
+<form action="/decoder/<?= html($algorithm) ?>/" method="POST" enctype="multipart/form-data">
     <div class="decoder-container" data-algorithm="<?= html($algorithm) ?>">
         <?php View::csrf() ?>
         <textarea name="content" class="decoder-content" title="The content to decode." placeholder="Enter some <?= html($algorithm) ?> content to decode..."><?= html($raw ?? "") ?></textarea>
+        <input type="file" name="file" class="decoder-file" title="The file to decode." />
         <span>
             <button type="submit" class="decoder-decode" title="Decode the content."><span class="fa-solid fa-download"></span>&nbsp;Decode</button>
             <button type="button" class="decoder-clear" title="Clear the content."><span class="fa-solid fa-delete-left"></span>&nbsp;Clear</button>

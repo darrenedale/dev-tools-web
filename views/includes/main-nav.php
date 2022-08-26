@@ -33,7 +33,7 @@
     <li>
         <a href="/codec/base64">Codecs</a>
         <ul>
-            <?php foreach(["base64", "base32",] as $algorithm): ?>
+            <?php foreach(["base64", "base32", "uuencoding",] as $algorithm): ?>
             <li>
                 <a href="/codec/<?= $algorithm ?>"><?= ucfirst($algorithm) ?></a>
                 <ul>

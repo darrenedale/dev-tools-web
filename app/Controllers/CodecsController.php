@@ -7,6 +7,7 @@ use App\Utilities\Base32;
 use App\Utilities\Base64;
 use App\Utilities\BinaryTextCodec;
 use App\Utilities\Hexit;
+use App\Utilities\UuEncoding;
 use App\WebApplication;
 use Equit\Contracts\Response;
 use Equit\Request;
@@ -32,7 +33,7 @@ class CodecsController
         return new View("encoder", compact("algorithm"));
     }
 
-    public function decode(Request $request, string $algorithm): Response
+    public function decode(Request $request, string $algorithm): ApiResponse
     {
         $validator = new Validator(
             $request->onlyPostData(["encoded"]),
@@ -54,51 +55,6 @@ class CodecsController
             return (new ApiResponse(Hexit::encode($codec->raw())));
         } catch (InvalidArgumentException $err) {
             return ApiResponse::error($err->getMessage());
-        }
-    }
-
-    public function encodeFile(Request $request, string $algorithm): Response
-    {
-        $file = $request->uploadedFile("file");
-
-        if (!isset($file)) {
-            WebApplication::instance()->storeTransientSessionData("messages", "errors", ["No file to encode."]);
-            return new View("encoder", compact("algorithm"));
-        }
-
-        try {
-            $codec = self::codecForAlgorithm($algorithm);
-            $codec->setRaw($file->data());
-            return (new DownloadResponse($codec->encoded()))->named(($file->name() ?? "uploaded-file") . ".{$algorithm}");
-        } catch (InvalidArgumentException $err) {
-            WebApplication::instance()->storeTransientSessionData("messages", "errors", [$err->getMessage()]);
-            return new View("encoder", compact("algorithm"));
-        }
-    }
-
-    public function decodeFile(Request $request, string $algorithm): Response
-    {
-        $validator = new Validator(
-            $request->onlyPostData(["content"]),
-            [
-                "content" => ["string", "filled",],
-            ]
-        );
-
-        if (!$validator->passes()) {
-            return new View("decoder", compact("algorithm"));
-        }
-
-        /** @var string $encoded */
-        extract($validator->validated());
-
-        try {
-            $codec = self::codecForAlgorithm($algorithm);
-            $codec->setEncoded($content);
-            return (new DownloadResponse($codec->raw()))->named("{$algorithm}-decoded-file");
-        } catch (InvalidArgumentException $err) {
-            WebApplication::instance()->storeTransientSessionData("messages", "errors", [$err->getMessage()]);
-            return new View("decoder", compact("algorithm"));
         }
     }
 
@@ -127,11 +83,76 @@ class CodecsController
         }
     }
 
+    public function encodeFile(Request $request, string $algorithm): Response
+    {
+        $file = $request->uploadedFile("file");
+
+        if (!isset($file)) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", ["No file to encode."]);
+            return new View("encoder", compact("algorithm"));
+        }
+
+        try {
+            $codec = self::codecForAlgorithm($algorithm);
+            $codec->setRaw($file->data());
+            return (new DownloadResponse($codec->encoded()))->named(($file->name() ?? "uploaded-file") . ".{$algorithm}");
+        } catch (InvalidArgumentException $err) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", [$err->getMessage()]);
+            return new View("encoder", compact("algorithm"));
+        }
+    }
+
+    public function decodeContent(Request $request, string $algorithm): Response
+    {
+        $validator = new Validator(
+            $request->onlyPostData(["content"]),
+            [
+                "content" => ["string", "filled",],
+            ]
+        );
+
+        if (!$validator->passes()) {
+            return new View("decoder", compact("algorithm"));
+        }
+
+        /** @var string $encoded */
+        extract($validator->validated());
+
+        try {
+            $codec = self::codecForAlgorithm($algorithm);
+            $codec->setEncoded($content);
+            return (new DownloadResponse($codec->raw()))->named("{$algorithm}-decoded-file");
+        } catch (InvalidArgumentException $err) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", [$err->getMessage()]);
+            return new View("decoder", compact("algorithm"));
+        }
+    }
+
+    public function decodeFile(Request $request, string $algorithm): Response
+    {
+        $file = $request->uploadedFile("file");
+
+        if (!isset($file)) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", ["No file to decode."]);
+            return new View("decoder", compact("algorithm"));
+        }
+
+        try {
+            $codec = self::codecForAlgorithm($algorithm);
+            $codec->setEncoded($file->data());
+            return (new DownloadResponse($codec->raw()))->named("{$algorithm}-decoded-file");
+        } catch (InvalidArgumentException $err) {
+            WebApplication::instance()->storeTransientSessionData("messages", "errors", [$err->getMessage()]);
+            return new View("decoder", compact("algorithm"));
+        }
+    }
+
     private static function codecForAlgorithm(string $algorithm): BinaryTextCodec
     {
         return match(strtolower($algorithm)) {
             "base32" => new Base32(),
             "base64" => new Base64(),
+            "uuencoding" => new UuEncoding(),
             default => throw new InvalidArgumentException("Unrecognised binary-to-text encoding algorithm '{$algorithm}'."),
         };
     }
