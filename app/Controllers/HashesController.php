@@ -21,9 +21,14 @@ class HashesController
         return new View("content-hash", compact("algorithm"));
     }
 
-    public function sendRandomHash(Request $request, string $algorithm): Response
+    public function showFileHash(Request $request, string $algorithm): Response
     {
-        return (new ApiResponse(static::randomHash($algorithm)));
+        return new View("file-hash", compact("algorithm"));
+    }
+
+    public function sendRandomHash(Request $request, string $algorithm): ApiResponse
+    {
+        return new ApiResponse(static::randomHash($algorithm));
     }
 
     private static function randomHash(string $algorithm): string
@@ -31,7 +36,7 @@ class HashesController
         return hash($algorithm, (string) (microtime(true) + mt_rand()));
     }
 
-    public function hashContent(Request $request, string $algorithm): Response
+    public function hashContent(Request $request, string $algorithm): ApiResponse
     {
         $validator = new Validator(
             $request->onlyPostData(["content"]),
@@ -46,5 +51,16 @@ class HashesController
 
         extract($validator->validated());
         return (new ApiResponse(hash($algorithm, $content)));
+    }
+
+    public function hashFile(Request $request, string $algorithm): ApiResponse
+    {
+        $file = $request->uploadedFile("file");
+
+        if (!isset($file)) {
+            return ApiResponse::error("The file to hash was not provided.");
+        }
+
+        return (new ApiResponse(hash_file($algorithm, $file->tempFile())));
     }
 }

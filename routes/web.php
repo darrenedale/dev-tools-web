@@ -17,6 +17,7 @@ $router->registerGet("/", [HomeController::class, "showHomePage"]);
 
 $router->registerGet("/hashes/random/{algorithm}", [HashesController::class, "showRandomHash"]);
 $router->registerGet("/hashes/{algorithm}", [HashesController::class, "showContentHash"]);
+$router->registerGet("/hashes/{algorithm}/file", [HashesController::class, "showFileHash"]);
 
 $router->registerGet("/regex/tester", [RegexController::class, "showRegexTester"]);
 

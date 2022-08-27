@@ -15,6 +15,9 @@
                         <a href="/hashes/<?= rawurlencode($algorithm) ?>">Calculator</a>
                     </li>
                     <li>
+                        <a href="/hashes/<?= rawurlencode($algorithm) ?>/file">Hash file</a>
+                    </li>
+                    <li>
                         <a href="/hashes/random/<?= rawurlencode($algorithm) ?>">Random generator</a>
                     </li>
                 </ul>

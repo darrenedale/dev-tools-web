@@ -99,9 +99,14 @@ class RandomHash
         this.hash = hash;
     }
 
+    protected onRequestFailed(message?: string): void
+    {
+        Notification.error(message ?? "Request for random hash failed.");
+    }
+
     protected onUpperCaseClicked(event: MouseEvent): void
     {
-        // refresh the has display
+        // refresh the hash display
         this.showHash(this.hash);
     }
 
@@ -115,7 +120,8 @@ class RandomHash
     {
         fetch(this.endpoint)
             .then((response: Response) => response.json())
-            .then((json: any) => this.onHashReceived(json.payload));
+            .then((json: any) => this.onHashReceived(json.payload))
+            .catch(() => this.onRequestFailed(`Request for random ${this.algorithm} hash failed.`));
     }
 
     public static bootstrap(): void

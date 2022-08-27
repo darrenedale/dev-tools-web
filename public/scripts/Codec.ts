@@ -137,15 +137,18 @@ class Codec
         this.m_copyRawHexits.disabled = false;
         this.m_copyRawBinary.disabled = false;
         const body = new FormData();
-        body.set("_token", this.m_csrf);
         body.set("raw", this.rawHexits);
 
         fetch(this.encodeEndpoint, {
             method: "POST",
-            body: body
+            body: body,
+            headers: {
+                "x-csrf-token": this.m_csrf,
+            },
         })
             .then((response: Response) => response.json())
-            .then((json) => this.onEncodedReceived(json.payload));
+            .then((json) => this.onEncodedReceived(json.payload))
+            .catch(() => this.onRequestFailed(`Request for ${this.algorithm} encoded content failed.`));
     }
 
     protected fetchDecoded(): void
@@ -162,15 +165,18 @@ class Codec
         this.m_copyRawHexits.disabled = false;
         this.m_copyRawBinary.disabled = false;
         const body = new FormData();
-        body.set("_token", this.m_csrf);
         body.set("content", this.encodedContent);
 
         fetch(this.decodeEndpoint, {
             method: "POST",
-            body: body
+            body: body,
+            headers: {
+                "x-csrf-token": this.m_csrf,
+            },
         })
             .then((response: Response) => response.json())
-            .then((json) => this.onDecodedReceived(json.payload));
+            .then((json) => this.onDecodedReceived(json.payload))
+            .catch(() => this.onRequestFailed(`Request for ${this.algorithm} decoded data failed.`));
     }
 
     protected onRawTimerTimeout(): void
@@ -209,6 +215,11 @@ class Codec
     protected onDecodedReceived(hexits: string): void
     {
         this.rawHexits = hexits;
+    }
+
+    protected onRequestFailed(message?: string): void
+    {
+        Notification.error(message ?? "Request for data failed.");
     }
 
     protected onCopyEncodedClicked(event: MouseEvent): void

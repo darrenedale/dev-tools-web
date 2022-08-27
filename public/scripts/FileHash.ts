@@ -1,6 +1,7 @@
 import {Notification} from "./Notification.js";
+import {ApiResponse} from "./ApiResponse.js";
 
-class ContentHash
+class FileHash
 {
     /**
      * How long after the user stops typing to wait for the next key before fetching the hash.
@@ -9,8 +10,9 @@ class ContentHash
      */
     protected static readonly RefreshTimerDuration = 350;
 
-    public static readonly HostDomClass = "content-hash";
-    private static readonly ContentDomClass = "hash-source";
+    public static readonly HostDomClass = "file-hash";
+    private static readonly FileDomClass = "hash-file";
+    private static readonly UploadDomClass = "hash-generate";
     private static readonly UpperCaseDomClass = "hash-upper";
     private static readonly CopyDomClass = "hash-copy";
     private static readonly DisplayDomClass = "hash-display";
@@ -18,32 +20,32 @@ class ContentHash
     private readonly m_host: HTMLElement;
     private readonly m_csrf: string;
     private readonly m_algorithm: string;
-    private readonly m_source: HTMLTextAreaElement;
+    private readonly m_file: HTMLInputElement;
+    private readonly m_upload: HTMLButtonElement;
     private readonly m_upperCase: HTMLInputElement;
     private readonly m_copy: HTMLButtonElement;
     private readonly m_display: HTMLElement;
-    private m_refreshTimerId: number;
 
     public constructor(host: HTMLElement)
     {
-        this.m_refreshTimerId = 0;
         this.m_host = host;
         this.m_algorithm = host.dataset.algorithm;
         this.m_csrf = host.dataset.csrf;
-        this.m_source = host.querySelector(`textarea.${ContentHash.ContentDomClass}`);
-        this.m_upperCase = host.querySelector(`input.${ContentHash.UpperCaseDomClass}`);
-        this.m_copy = host.querySelector(`button.${ContentHash.CopyDomClass}`);
-        this.m_display = host.querySelector(`.${ContentHash.DisplayDomClass}`);
+        this.m_file = host.querySelector(`input.${FileHash.FileDomClass}`);
+        this.m_upload = host.querySelector(`button.${FileHash.UploadDomClass}`);
+        this.m_upperCase = host.querySelector(`input.${FileHash.UpperCaseDomClass}`);
+        this.m_copy = host.querySelector(`button.${FileHash.CopyDomClass}`);
+        this.m_display = host.querySelector(`.${FileHash.DisplayDomClass}`);
         this.bindEvents();
 
-        if ("" === this.sourceContent) {
+        if (!this.hasFile) {
             this.m_copy.disabled = true;
         }
     }
 
     protected get endpoint(): string
     {
-        return `/api/hashes/${this.m_algorithm}/hash`;
+        return `/api/hashes/${this.m_algorithm}/file/hash`;
     }
 
     public get algorithm(): string
@@ -51,19 +53,14 @@ class ContentHash
         return this.m_algorithm;
     }
 
-    public get sourceContent(): string
+    public get hasFile(): boolean
     {
-        return this.m_source.value;
+        return 0 < this.m_file.files.length;
     }
 
-    public set sourceContent(content: string)
+    public get fileElement(): HTMLInputElement
     {
-        this.m_source.value = content;
-    }
-
-    public get sourceElement(): HTMLTextAreaElement
-    {
-        return this.m_source;
+        return this.m_file;
     }
 
     public get hostElement(): HTMLElement
@@ -109,14 +106,14 @@ class ContentHash
 
     private bindEvents(): void
     {
-        this.m_source.addEventListener("keyup", (event: KeyboardEvent) => this.onContentKeyPress(event));
+        this.m_upload.addEventListener("click", (event: MouseEvent) => this.onUploadClicked(event));
         this.m_upperCase.addEventListener("click", (event: MouseEvent) => this.onUpperCaseClicked(event));
         this.m_copy.addEventListener("click", (event: MouseEvent) => this.onCopyClicked(event));
     }
 
     protected fetchHash(): void
     {
-        if ("" === this.sourceContent) {
+        if (!this.hasFile) {
             this.m_copy.disabled = true;
             this.showHash("<no hash>");
             return;
@@ -124,7 +121,7 @@ class ContentHash
 
         this.m_copy.disabled = false;
         const body = new FormData();
-        body.set("content", this.sourceContent);
+        body.set("file", this.fileElement.files[0]);
 
         fetch(this.endpoint, {
             method: "POST",
@@ -134,37 +131,32 @@ class ContentHash
             },
         })
             .then((response: Response) => response.json())
-            .then((json) => this.onHashReceived(json.payload))
-            .catch(() => this.onRequestFailed(`Request for ${this.algorithm} hash failed.`));
+            .then((json) => this.onResponseReceived(json))
+            .catch(() => this.onRequestFailed(`Request for ${this.algorithm} hash of file failed.`));
     }
 
-    protected onContentTimerTimeout(): void
+    protected onUploadClicked(event: MouseEvent): void
     {
         this.fetchHash();
     }
 
-    protected onContentKeyPress(event): void
-    {
-        if (0 !== this.m_refreshTimerId) {
-            window.clearTimeout(this.m_refreshTimerId);
-        }
-
-        this.m_refreshTimerId = window.setTimeout(() => this.onContentTimerTimeout(), ContentHash.RefreshTimerDuration);
-    }
-
-    protected onHashReceived(hash: string): void
-    {
-        this.showHash(hash);
-    }
-
     protected onRequestFailed(message?: string): void
     {
-        Notification.error(message ?? `Request for ${this.algorithm} hash failed.`);
+        Notification.error(message ?? `Request for ${this.algorithm} file hash failed.`);
+    }
+
+    protected onResponseReceived(response: ApiResponse): void
+    {
+        if (ApiResponse.Ok === response.result.code) {
+            this.showHash(response.payload);
+        } else {
+            Notification.error(response.result.message);
+        }
     }
 
     protected onUpperCaseClicked(event: MouseEvent): void
     {
-        if ("" === this.sourceContent) {
+        if ("<no-hash>" === this.hash) {
             return;
         }
 
@@ -180,11 +172,11 @@ class ContentHash
 
     public static bootstrap(): void
     {
-        document.querySelectorAll(`.${ContentHash.HostDomClass}`).forEach((host: HTMLElement) => new ContentHash(host));
+        document.querySelectorAll(`.${FileHash.HostDomClass}`).forEach((host: HTMLElement) => new FileHash(host));
     }
 }
 
 (function ()
 {
-    window.addEventListener("load", ContentHash.bootstrap);
+    window.addEventListener("load", FileHash.bootstrap);
 })();
