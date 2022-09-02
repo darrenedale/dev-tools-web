@@ -35,17 +35,16 @@ header
   padding: dimensions.$padding;
 }
 
-input
+select,
+input[type=text],
+input[type=number],
+input[type=email],
+input[type=search],
+input[type=password],
+input[type=file],
 {
-  &[type=text],
-  &[type=email],
-  &[type=search],
-  &[type=password],
-  &[type=file],
-  {
-    @include widget;
-    height: 30px;
-  }
+  @include widget;
+  height: 30px;
 }
 
 textarea
