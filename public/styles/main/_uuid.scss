@@ -1,0 +1,45 @@
+@use "../includes/dimensions";
+
+.uuid-container
+{
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: dimensions.$margin;
+
+  textarea
+  {
+    display: block;
+    min-width: 40em;
+    min-height: 10em;
+    margin-bottom: dimensions.$margin;
+  }
+
+  .uuid-display-container
+  {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+    row-gap: dimensions.$margin;
+    column-gap: dimensions.$margin;
+
+    .uuid-display
+    {
+      box-sizing: border-box;
+      font-family: monospace;
+      font-size: larger;
+      padding: dimensions.$padding dimensions.$largePadding;
+      border-radius: dimensions.$borderRadius;
+      background: rgba(0, 0, 0, 0.1);
+      min-width: 2em;
+      min-height: 1em;
+      overflow-x: auto;
+    }
+
+    button
+    {
+      margin-left: 5px;
+    }
+  }
+}

@@ -26,6 +26,14 @@
         </ul>
     </li>
     <li>
+        <a href="/uuid/random">UUID</a>
+        <ul>
+            <li>
+                <a href="/uuid/random">Random</a>
+            </li>
+        </ul>
+    </li>
+    <li>
         <a href="/regex/tester">Regex</a>
         <ul>
             <li>
