@@ -17,7 +17,7 @@ View::layout("layouts.main");
 <?php View::endPush(); ?>
 
 <?php View::section("head-title"); ?>
-Random MD5
+Random <?= html($algorithm) ?>
 <?php
 View::endSection();
 View::section("page-title");
