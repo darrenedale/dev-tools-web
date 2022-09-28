@@ -12,6 +12,7 @@ class Timestamp
     private static readonly SecondDomClass = "timestamp-second";
     private static readonly CopyTimestampDomClass = "timestamp-copy";
     private static readonly NowDomClass = "timestamp-now";
+    private static readonly KeepUpdatedDomClass = "timestamp-updated";
     private static readonly ResetTimestampDomClass = "timestamp-reset";
 
     private readonly m_host: HTMLElement;
@@ -24,8 +25,10 @@ class Timestamp
     private readonly m_second: HTMLInputElement;
     private readonly m_copyTimestamp: HTMLButtonElement;
     private readonly m_now: HTMLButtonElement;
+    private readonly m_keepUpdated: HTMLInputElement;
     private readonly m_reset: HTMLButtonElement;
     private m_refreshTimerId?: number;
+    private m_keepUpdatedTimerId?: number;
 
     public constructor(host: HTMLElement)
     {
@@ -39,6 +42,7 @@ class Timestamp
         this.m_second = host.querySelector(`input.${Timestamp.SecondDomClass}`);
         this.m_copyTimestamp = host.querySelector(`button.${Timestamp.CopyTimestampDomClass}`);
         this.m_now = host.querySelector(`button.${Timestamp.NowDomClass}`);
+        this.m_keepUpdated = host.querySelector(`input.${Timestamp.KeepUpdatedDomClass}`);
         this.m_reset = host.querySelector(`button.${Timestamp.ResetTimestampDomClass}`);
 
         if (0 !== this.timestamp) {
@@ -141,6 +145,16 @@ class Timestamp
         return this.m_host;
     }
 
+    public get keepUpdated(): boolean
+    {
+        return this.m_keepUpdated.checked;
+    }
+
+    public set keepUpdated(updated: boolean)
+    {
+        this.m_keepUpdated.checked = updated;
+    }
+
     private bindEvents(): void
     {
         this.m_timestamp.addEventListener("input", (event: Event) => this.onTimestampChanged(event));
@@ -154,7 +168,19 @@ class Timestamp
 
         this.m_copyTimestamp.addEventListener("click", (event: MouseEvent) => this.onCopyTimestampClicked(event));
         this.m_now.addEventListener("click", (event: MouseEvent) => this.onNowClicked(event));
+        this.m_keepUpdated.addEventListener("click", (event: MouseEvent) => this.onKeepUpdatedClicked(event));
         this.m_reset.addEventListener("click", (event: MouseEvent) => this.onResetClicked(event));
+    }
+
+    private syncKeepUpdatedTimerState(): void
+    {
+        if (undefined !== this.m_keepUpdatedTimerId) {
+            window.clearInterval(this.m_keepUpdatedTimerId);
+        }
+
+        if (this.keepUpdated) {
+            this.m_keepUpdatedTimerId = window.setInterval(() => this.showNow(), 1000);
+        }
     }
 
     protected setDateFromTimestamp(): void
@@ -248,6 +274,11 @@ class Timestamp
     protected onNowClicked(event: MouseEvent): void
     {
         this.showNow();
+    }
+
+    protected onKeepUpdatedClicked(event: MouseEvent): void
+    {
+        this.syncKeepUpdatedTimerState();
     }
 
     protected onResetClicked(event: MouseEvent): void
