@@ -12,7 +12,7 @@ class Timestamp
     private static readonly SecondDomClass = "timestamp-second";
     private static readonly CopyTimestampDomClass = "timestamp-copy";
     private static readonly NowDomClass = "timestamp-now";
-    private static readonly KeepUpdatedDomClass = "timestamp-updated";
+    private static readonly ContinuousUpdateDomClass = "timestamp-continuous-update";
     private static readonly ResetTimestampDomClass = "timestamp-reset";
 
     private readonly m_host: HTMLElement;
@@ -25,10 +25,10 @@ class Timestamp
     private readonly m_second: HTMLInputElement;
     private readonly m_copyTimestamp: HTMLButtonElement;
     private readonly m_now: HTMLButtonElement;
-    private readonly m_keepUpdated: HTMLInputElement;
+    private readonly m_continuousUpdate: HTMLInputElement;
     private readonly m_reset: HTMLButtonElement;
     private m_refreshTimerId?: number;
-    private m_keepUpdatedTimerId?: number;
+    private m_continuouslyUpdateTimerId?: number;
 
     public constructor(host: HTMLElement)
     {
@@ -42,7 +42,7 @@ class Timestamp
         this.m_second = host.querySelector(`input.${Timestamp.SecondDomClass}`);
         this.m_copyTimestamp = host.querySelector(`button.${Timestamp.CopyTimestampDomClass}`);
         this.m_now = host.querySelector(`button.${Timestamp.NowDomClass}`);
-        this.m_keepUpdated = host.querySelector(`input.${Timestamp.KeepUpdatedDomClass}`);
+        this.m_continuousUpdate = host.querySelector(`input.${Timestamp.ContinuousUpdateDomClass}`);
         this.m_reset = host.querySelector(`button.${Timestamp.ResetTimestampDomClass}`);
 
         if (0 !== this.timestamp) {
@@ -140,19 +140,39 @@ class Timestamp
         return this.m_second;
     }
 
+    public get nowButton(): HTMLButtonElement
+    {
+        return this.m_now;
+    }
+
+    public get copyButton(): HTMLButtonElement
+    {
+        return this.m_copyTimestamp;
+    }
+
+    public get resetButton(): HTMLButtonElement
+    {
+        return this.m_reset;
+    }
+
+    public get continuouslyUpdateCheckbox(): HTMLInputElement
+    {
+        return this.m_continuousUpdate;
+    }
+
     public get hostElement(): HTMLElement
     {
         return this.m_host;
     }
 
-    public get keepUpdated(): boolean
+    public get continuouslyUpdate(): boolean
     {
-        return this.m_keepUpdated.checked;
+        return this.m_continuousUpdate.checked;
     }
 
-    public set keepUpdated(updated: boolean)
+    public set continuouslyUpdate(continuous: boolean)
     {
-        this.m_keepUpdated.checked = updated;
+        this.m_continuousUpdate.checked = continuous;
     }
 
     private bindEvents(): void
@@ -168,18 +188,21 @@ class Timestamp
 
         this.m_copyTimestamp.addEventListener("click", (event: MouseEvent) => this.onCopyTimestampClicked(event));
         this.m_now.addEventListener("click", (event: MouseEvent) => this.onNowClicked(event));
-        this.m_keepUpdated.addEventListener("click", (event: MouseEvent) => this.onKeepUpdatedClicked(event));
+        this.m_continuousUpdate.addEventListener("click", (event: MouseEvent) => this.onContinuouslyUpdateClicked(event));
         this.m_reset.addEventListener("click", (event: MouseEvent) => this.onResetClicked(event));
     }
 
-    private syncKeepUpdatedTimerState(): void
+    /**
+     * Turn the continuous update timer on or off based on the checkbox state.
+     */
+    private syncContinuouslyUpdateTimer(): void
     {
-        if (undefined !== this.m_keepUpdatedTimerId) {
-            window.clearInterval(this.m_keepUpdatedTimerId);
+        if (undefined !== this.m_continuouslyUpdateTimerId) {
+            window.clearInterval(this.m_continuouslyUpdateTimerId);
         }
 
-        if (this.keepUpdated) {
-            this.m_keepUpdatedTimerId = window.setInterval(() => this.showNow(), 1000);
+        if (this.continuouslyUpdate) {
+            this.m_continuouslyUpdateTimerId = window.setInterval(() => this.showNow(), 1000);
         }
     }
 
@@ -276,9 +299,9 @@ class Timestamp
         this.showNow();
     }
 
-    protected onKeepUpdatedClicked(event: MouseEvent): void
+    protected onContinuouslyUpdateClicked(event: MouseEvent): void
     {
-        this.syncKeepUpdatedTimerState();
+        this.syncContinuouslyUpdateTimer();
     }
 
     protected onResetClicked(event: MouseEvent): void

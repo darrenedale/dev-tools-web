@@ -36,7 +36,7 @@ Unix timestamps
         <input type="number" class="timestamp-timestamp" value="<?= $timestamp ?? 0 ?>" title="Enter a Unix timestamp to convert." placeholder="Unix timestamp..."/>
         <button type="button" class="timestamp-reset" title="Clear the timestamp."><span class="fa-solid fa-delete-left"></span></button>
         <button type="button" class="timestamp-now" title="Get the timestamp for the current time."><span class="fa-solid fa-clock"></span></button>
-        <input type="checkbox" class="timestamp-updated" title="Keep the timestamp up-to-date." />&nbsp;Keep updated
+        <input type="checkbox" id="timestamp-continuous-update" class="timestamp-continuous-update" title="Keep the timestamp up-to-date with the current time." />&nbsp;<label for="timestamp-continuous-update">Continuously update</label>
         <button type="button" class="timestamp-copy" title="Copy the timestamp to the clipboard."><span class="fa-solid fa-copy"></span></button>
         </span>
     <span>
