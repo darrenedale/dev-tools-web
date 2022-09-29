@@ -202,6 +202,7 @@ class Timestamp
         }
 
         if (this.continuouslyUpdate) {
+            this.showNow();
             this.m_continuouslyUpdateTimerId = window.setInterval(() => this.showNow(), 1000);
         }
     }
