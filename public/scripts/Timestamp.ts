@@ -218,10 +218,18 @@ class Timestamp
         this.m_second.value = `${date.getUTCSeconds()}`;
     }
 
+
     protected setTimestampFromDate(): void
     {
-        const date = new Date(this.year, this.month, this.day, this.hour, this.minute, this.second);
-        this.m_timestamp.value = `${Math.floor(date.valueOf() / 1000)}`;
+        const date = new Date(this.year, this.month - 1, this.day, this.hour, this.minute, this.second);
+        const timestamp = Math.floor((date.getTime() - (date.getTimezoneOffset() * 60000)) / 1000);
+
+        if (Number.isNaN(timestamp)) {
+            this.m_timestamp.value = "";
+            Notification.error("Invalid date.");
+        } else {
+            this.m_timestamp.value = `${timestamp}`;
+        }
     }
 
     protected restartTimestampRefreshTimer(): void
