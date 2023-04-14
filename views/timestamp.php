@@ -62,9 +62,11 @@ Unix timestamps
         <input type="number" class="timestamp-time timestamp-minute" value="<?= $minute ?? 0 ?>" title="Minute to convert to a Unix timestamp." placeholder="Minute..." min="0" max="59" /> :
         <input type="number" class="timestamp-time timestamp-second" value="<?= $second ?? 0 ?>" title="Second to convert to a Unix timestamp." placeholder="Second..." min="0" max="59" />
     </span>
-    <div id="time-display-container">
+    <div id="time-displays-container" class="boxout">
         <h3>Date-time formats</h3>
-        <span class="time-display-label">ISO8601 UTC</span>&nbsp;<span class="time-display-iso8601-utc"></span>
+        <div class="time-display">
+            <span class="time-display-label">ISO8601 UTC</span>&nbsp;<span class="time-display-value time-display-iso8601-utc"></span> <button type="button" class="time-display-copy" title="Copy the formatted time to the clipboard."><span class="fa-solid fa-copy"></span></button>
+        </div>
     </div>
 </div>
 <?php View::endSection(); ?>

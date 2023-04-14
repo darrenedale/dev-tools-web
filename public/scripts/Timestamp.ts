@@ -14,7 +14,10 @@ class Timestamp
     private static readonly NowDomClass = "timestamp-now";
     private static readonly ContinuousUpdateDomClass = "timestamp-continuous-update";
     private static readonly ResetTimestampDomClass = "timestamp-reset";
-    private static readonly TimeDisplayContainerId = "time-display-container";
+    private static readonly TimeDisplaysContainerId = "time-displays-container";
+    private static readonly TimeDisplayContainerDomClass = "time-display";
+    private static readonly TimeDisplayCopyDomClass = "time-display-copy";
+    private static readonly TimeDisplayValueDomClass = "time-display-value";
     private static readonly Iso8601UtcDisplayDomClass = "time-display-iso8601-utc";
 
     private readonly m_host: HTMLElement;
@@ -29,6 +32,7 @@ class Timestamp
     private readonly m_now: HTMLButtonElement;
     private readonly m_continuousUpdate: HTMLInputElement;
     private readonly m_reset: HTMLButtonElement;
+    private readonly m_displays: HTMLDivElement;
     private readonly m_iso8601Utc: HTMLSpanElement;
     private m_refreshTimerId?: number;
     private m_continuouslyUpdateTimerId?: number;
@@ -47,7 +51,8 @@ class Timestamp
         this.m_now = host.querySelector(`button.${Timestamp.NowDomClass}`);
         this.m_continuousUpdate = host.querySelector(`input.${Timestamp.ContinuousUpdateDomClass}`);
         this.m_reset = host.querySelector(`button.${Timestamp.ResetTimestampDomClass}`);
-        this.m_iso8601Utc = host.querySelector(`#${Timestamp.TimeDisplayContainerId} span.${Timestamp.Iso8601UtcDisplayDomClass}`);
+        this.m_displays = host.querySelector(`#${Timestamp.TimeDisplaysContainerId}`);
+        this.m_iso8601Utc = this.m_displays.querySelector(`span.${Timestamp.Iso8601UtcDisplayDomClass}`);
 
         if (0 !== this.timestamp) {
             this.setDateFromTimestamp();
@@ -197,6 +202,8 @@ class Timestamp
         this.m_now.addEventListener("click", (event: MouseEvent) => this.onNowClicked(event));
         this.m_continuousUpdate.addEventListener("click", (event: MouseEvent) => this.onContinuouslyUpdateClicked(event));
         this.m_reset.addEventListener("click", (event: MouseEvent) => this.onResetClicked(event));
+
+        this.m_displays.addEventListener("click", (event: MouseEvent) => this.onCopyTimeDisplayClicked(event));
     }
 
     /**
@@ -336,6 +343,28 @@ class Timestamp
     protected onResetClicked(event: MouseEvent): void
     {
         this.timestamp = 0;
+    }
+
+    /**
+     * Delegated handler for when the user clicks on one of the formatted display copy buttons.
+     * @param event The mouse event.
+     */
+    private onCopyTimeDisplayClicked(event: MouseEvent): void
+    {
+        const button = (<HTMLElement> event.target).closest("button");
+
+        if (!button || !button.matches(`.${Timestamp.TimeDisplayCopyDomClass}`)) {
+            return;
+        }
+
+        const display = button.closest(`.${Timestamp.TimeDisplayContainerDomClass}`)?.querySelector(`.${Timestamp.TimeDisplayValueDomClass}`);
+
+        if (!display) {
+            return;
+        }
+
+        navigator.clipboard.writeText(display.textContent)
+            .then(() => Notification.information(`The text ${display.textContent} was copied to the clipboard`));
     }
 
     public static bootstrap(): void

@@ -131,4 +131,11 @@ textarea
       color: colours.$disabledActionTextColour;
     }
   }
+
+  .boxout
+  {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: dimensions.$largePadding;
+    margin: dimensions.$largeMargin;
+  }
 }
