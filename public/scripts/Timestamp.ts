@@ -14,6 +14,8 @@ class Timestamp
     private static readonly NowDomClass = "timestamp-now";
     private static readonly ContinuousUpdateDomClass = "timestamp-continuous-update";
     private static readonly ResetTimestampDomClass = "timestamp-reset";
+    private static readonly TimeDisplayContainerId = "time-display-container";
+    private static readonly Iso8601UtcDisplayDomClass = "time-display-iso8601-utc";
 
     private readonly m_host: HTMLElement;
     private readonly m_timestamp: HTMLInputElement;
@@ -27,6 +29,7 @@ class Timestamp
     private readonly m_now: HTMLButtonElement;
     private readonly m_continuousUpdate: HTMLInputElement;
     private readonly m_reset: HTMLButtonElement;
+    private readonly m_iso8601Utc: HTMLSpanElement;
     private m_refreshTimerId?: number;
     private m_continuouslyUpdateTimerId?: number;
 
@@ -44,11 +47,14 @@ class Timestamp
         this.m_now = host.querySelector(`button.${Timestamp.NowDomClass}`);
         this.m_continuousUpdate = host.querySelector(`input.${Timestamp.ContinuousUpdateDomClass}`);
         this.m_reset = host.querySelector(`button.${Timestamp.ResetTimestampDomClass}`);
+        this.m_iso8601Utc = host.querySelector(`#${Timestamp.TimeDisplayContainerId} span.${Timestamp.Iso8601UtcDisplayDomClass}`);
 
         if (0 !== this.timestamp) {
             this.setDateFromTimestamp();
+            this.updateTimestampDisplays();
         } else if (1970 !== this.year || 1 !== this.month || 1 != this.day || 0 != this.hour || 0 != this.minute || 0 != this.second) {
             this.setTimestampFromDate();
+            this.updateTimestampDisplays();
         }
 
         this.bindEvents();
@@ -73,6 +79,7 @@ class Timestamp
     {
         this.m_timestamp.value = `${timestamp}`;
         this.setDateFromTimestamp();
+        this.updateTimestampDisplays();
     }
 
     public get year(): number
@@ -232,6 +239,17 @@ class Timestamp
         }
     }
 
+    protected updateTimestampDisplays(): void
+    {
+        const time = new Date(this.timestamp * 1000);
+        this.showIso8601Time(time);
+    }
+
+    protected showIso8601Time(time: Date): void
+    {
+        this.m_iso8601Utc.innerText = time.toISOString();//`${time.getUTCFullYear()}-${time.getUTCMonth() + 1}-${time.getUTCDate()}T${time.getUTCHours()}:${time.getUTCMinutes()}:${time.getUTCSeconds()}+00:00`;
+    }
+
     protected restartTimestampRefreshTimer(): void
     {
         if (undefined !== this.m_refreshTimerId) {
@@ -254,12 +272,14 @@ class Timestamp
     {
         delete this.m_refreshTimerId;
         this.setDateFromTimestamp();
+        this.updateTimestampDisplays();
     }
 
     protected onTimestampRefreshTimeout(): void
     {
         delete this.m_refreshTimerId;
         this.setTimestampFromDate();
+        this.updateTimestampDisplays();
     }
 
     protected onTimestampChanged(event: Event): void

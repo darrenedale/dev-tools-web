@@ -38,7 +38,7 @@ Unix timestamps
         <button type="button" class="timestamp-now" title="Get the timestamp for the current time."><span class="fa-solid fa-clock"></span></button>
         <input type="checkbox" id="timestamp-continuous-update" class="timestamp-continuous-update" title="Keep the timestamp up-to-date with the current time." />&nbsp;<label for="timestamp-continuous-update">Continuously update</label>
         <button type="button" class="timestamp-copy" title="Copy the timestamp to the clipboard."><span class="fa-solid fa-copy"></span></button>
-        </span>
+    </span>
     <span>
         <input type="number" class="timestamp-date timestamp-day" value="<?= $day ?? 1 ?>" title="Day to convert to a Unix timestamp." placeholder="Day..." min="1" max="31" />
         <select size="1" class="timestamp-date timestamp-month" title="Month to convert to a Unix timestamp.">
@@ -62,5 +62,9 @@ Unix timestamps
         <input type="number" class="timestamp-time timestamp-minute" value="<?= $minute ?? 0 ?>" title="Minute to convert to a Unix timestamp." placeholder="Minute..." min="0" max="59" /> :
         <input type="number" class="timestamp-time timestamp-second" value="<?= $second ?? 0 ?>" title="Second to convert to a Unix timestamp." placeholder="Second..." min="0" max="59" />
     </span>
+    <div id="time-display-container">
+        <h3>Date-time formats</h3>
+        <span class="time-display-label">ISO8601 UTC</span>&nbsp;<span class="time-display-iso8601-utc"></span>
+    </div>
 </div>
 <?php View::endSection(); ?>
