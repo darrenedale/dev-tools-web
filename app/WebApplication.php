@@ -19,7 +19,7 @@ class WebApplication extends BaseApplication
     public function __construct()
     {
         parent::__construct(__DIR__ . "/..");
-
+        $this->bindService(Logger::class, new FileLogger(__DIR__ . "/../{$this->config("app.logfile")}", FileLogger::FlagAppend));
         $this->setErrorHandler(new ErrorHandler());
     }
 }

@@ -23,4 +23,7 @@ return [
 
     // where views for HTTP error response content are located
     "http.error.view.path" => "errors",
+
+    // where app plugins are located
+    "plugins.path" => "plugins",
 ];
