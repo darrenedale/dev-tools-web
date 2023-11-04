@@ -9,11 +9,11 @@ use App\Utilities\BinaryTextCodec;
 use App\Utilities\Hexit;
 use App\Utilities\UuEncoding;
 use App\WebApplication;
-use Equit\Contracts\Response;
-use Equit\Request;
-use Equit\Responses\DownloadResponse;
-use Equit\Validation\Validator;
-use Equit\View;
+use Bead\Contracts\Response;
+use Bead\Request;
+use Bead\Responses\DownloadResponse;
+use Bead\Validation\Validator;
+use Bead\View;
 use InvalidArgumentException;
 
 class CodecsController

@@ -5,9 +5,9 @@ use App\Controllers\HashesController;
 use App\Controllers\HomeController;
 use App\Controllers\RegexController;
 use App\Controllers\UuidController;
-use Equit\Contracts\Router;
-use Equit\View;
-use Equit\WebApplication;
+use Bead\Contracts\Router;
+use Bead\View;
+use Bead\WebApplication;
 
 /**
  * @var WebApplication $app

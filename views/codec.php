@@ -7,8 +7,8 @@
  * @var $raw string|null The raw data to display.
  */
 
-use Equit\View;
-use Equit\WebApplication;
+use Bead\View;
+use Bead\WebApplication;
 
 View::layout("layouts.main");
 ?>

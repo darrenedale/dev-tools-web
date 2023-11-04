@@ -2,8 +2,8 @@
 
 use App\Controllers\CodecsController;
 use App\Controllers\HashesController;
-use Equit\Contracts\Router;
-use Equit\WebApplication;
+use Bead\Contracts\Router;
+use Bead\WebApplication;
 
 /**
  * @var WebApplication $app

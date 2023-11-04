@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use Equit\Contracts\Response;
-use Equit\View;
+use Bead\Contracts\Response;
+use Bead\View;
 
 class HomeController
 {

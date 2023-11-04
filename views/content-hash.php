@@ -6,8 +6,8 @@
  * @var $hash string|null The has to display.
  */
 
-use Equit\View;
-use Equit\WebApplication;
+use Bead\View;
+use Bead\WebApplication;
 
 View::layout("layouts.main");
 ?>

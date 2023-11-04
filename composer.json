@@ -9,12 +9,6 @@
       "email": "darren.edale@equit.dev"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/darrenedale/bead-framework.git"
-    }
-  ],
   "require": {
     "bead/framework": "dev-production",
     "php": "^7.4|^8.0"

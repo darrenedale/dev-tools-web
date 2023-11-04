@@ -11,8 +11,8 @@
  * @var $second int|null The second for the date.
  */
 
-use Equit\View;
-use Equit\WebApplication;
+use Bead\View;
+use Bead\WebApplication;
 
 View::layout("layouts.main");
 ?>

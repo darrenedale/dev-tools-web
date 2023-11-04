@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Responses;
 
-use Equit\Contracts\Response;
-use Equit\Responses\DoesntHaveHeaders;
-use Equit\Responses\NaivelySendsContent;
+use Bead\Contracts\Response;
+use Bead\Responses\DoesntHaveHeaders;
+use Bead\Responses\NaivelySendsContent;
 
 /**
  * Encapsulation of an API response.

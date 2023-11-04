@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Equit\ErrorHandler as BaseErrorHandler;
+use Bead\ErrorHandler as BaseErrorHandler;
 use Throwable;
 
 /**

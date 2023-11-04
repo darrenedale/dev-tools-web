@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Responses\ApiResponse;
-use Equit\Contracts\Response;
-use Equit\Request;
-use Equit\Validation\Validator;
-use Equit\View;
+use Bead\Contracts\Response;
+use Bead\Request;
+use Bead\Validation\Validator;
+use Bead\View;
 
 class HashesController
 {

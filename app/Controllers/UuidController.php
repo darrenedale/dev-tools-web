@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use Equit\Contracts\Response;
-use Equit\Request;
-use Equit\View;
+use Bead\Contracts\Response;
+use Bead\Request;
+use Bead\View;
 
 class UuidController
 {

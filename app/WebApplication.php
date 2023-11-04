@@ -2,7 +2,9 @@
 
 namespace App;
 
-use Equit\WebApplication as BaseApplication;
+use Bead\Contracts\Logger;
+use Bead\Logging\FileLogger;
+use Bead\WebApplication as BaseApplication;
 use Exception;
 
 /**

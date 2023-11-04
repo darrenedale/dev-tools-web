@@ -4,7 +4,7 @@
  * @var Throwable $exception
  */
 
-use Equit\View;
+use Bead\View;
 
 View::layout("layouts.main");
 

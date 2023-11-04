@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-use Equit\View;
+use Bead\View;
 ?>
 <html lang="en-gb">
 <head>
