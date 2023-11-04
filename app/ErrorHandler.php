@@ -32,11 +32,11 @@ class ErrorHandler extends BaseErrorHandler
     /**
      * Handle an exception
      *
-     * @param Throwable $err The exception that occurred.
+     * @param Throwable $error The exception that occurred.
      */
-    public function handleException(Throwable $err): void
+    public function handleException(Throwable $error): void
     {
         // customise error handling here - e.g. do you use BugSnag?
-        parent::handleException($err);
+        parent::handleException($error);
     }
 }
