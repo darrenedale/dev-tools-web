@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Bead\Core\Binders\Crypter;
-use Bead\Core\Binders\Database;
 use Bead\Core\Binders\Translator;
 use Bead\Core\Binders\Logger;
 
