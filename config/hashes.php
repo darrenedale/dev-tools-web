@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     // the available algorithms for the hashing utils - only the intersection of this and the algorithms supported by
     // PHP will actually be available

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Bead\Contracts\Logger;
-use Bead\Logging\FileLogger;
 use Bead\Core\WebApplication as BaseApplication;
 use Exception;
 
