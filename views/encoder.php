@@ -8,7 +8,7 @@
  */
 
 use Bead\View;
-use Bead\WebApplication;
+use Bead\Core\WebApplication;
 
 View::layout("layouts.main");
 ?>

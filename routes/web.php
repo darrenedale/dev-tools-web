@@ -7,7 +7,7 @@ use App\Controllers\RegexController;
 use App\Controllers\UuidController;
 use Bead\Contracts\Router;
 use Bead\View;
-use Bead\WebApplication;
+use Bead\Core\WebApplication;
 
 /**
  * @var WebApplication $app

@@ -254,7 +254,7 @@ class Timestamp
 
     protected showIso8601Time(time: Date): void
     {
-        this.m_iso8601Utc.innerText = time.toISOString();//`${time.getUTCFullYear()}-${time.getUTCMonth() + 1}-${time.getUTCDate()}T${time.getUTCHours()}:${time.getUTCMinutes()}:${time.getUTCSeconds()}+00:00`;
+        this.m_iso8601Utc.innerText = time.toISOString();
     }
 
     protected restartTimestampRefreshTimer(): void

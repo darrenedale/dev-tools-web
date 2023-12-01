@@ -27,7 +27,7 @@ final class Hexit extends BinaryTextCodec
     public function encoded(): string
     {
         if (!isset($this->m_encoded)) {
-            $this->m_encoded = self::fromHexits($this->m_raw);
+            $this->m_encoded = self::toHexits($this->m_raw);
         }
 
         return $this->m_encoded;

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Bead\ErrorHandler as BaseErrorHandler;
+use Bead\Core\ErrorHandler as BaseErrorHandler;
 use Throwable;
 
 /**

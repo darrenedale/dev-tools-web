@@ -1,12 +1,13 @@
 <?php
 
-return [
-    // The location of the app's log file.
-    //
-    // All error and warning messages will be appended to this file.
-    // If debug mode is enabled, any debugging messages will also be written to this file.
-    "logfile" => "logs/app.log",
+declare(strict_types=1);
 
+use Bead\Core\Binders\Crypter;
+use Bead\Core\Binders\Database;
+use Bead\Core\Binders\Translator;
+use Bead\Core\Binders\Logger;
+
+return [
     // Whether to enable debug mode.
     //
     // If debug mode is enabled, any debugging messages will be appended to the log file. If not, debug messages will be
@@ -24,6 +25,11 @@ return [
     // where views for HTTP error response content are located
     "http.error.view.path" => "errors",
 
-    // where app plugins are located
-    "plugins.path" => "plugins",
+    "base_url" => getenv("DEV_TOOLS_URL") ?: ((($_SERVER["SERVER_NAME"] ?? "localhost") . (!in_array(($_SERVER["SERVER_PORT"] ?? 443), [80, 443,]) ? $_SERVER["SERVER_PORT"] : ""))),
+
+    "binders" => [
+        Logger::class,
+        Translator::class,
+        Crypter::class,
+    ],
 ];

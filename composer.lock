@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darrenedale/bead-framework.git",
-                "reference": "7bc3c1146c4948065c298e8a5fe4400df585facb"
+                "reference": "7f1db7657b2e1aa361418920b4cf19d0a30728cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darrenedale/bead-framework/zipball/7bc3c1146c4948065c298e8a5fe4400df585facb",
-                "reference": "7bc3c1146c4948065c298e8a5fe4400df585facb",
+                "url": "https://api.github.com/repos/darrenedale/bead-framework/zipball/7f1db7657b2e1aa361418920b4cf19d0a30728cf",
+                "reference": "7f1db7657b2e1aa361418920b4cf19d0a30728cf",
                 "shasum": ""
             },
             "require": {
@@ -70,9 +70,9 @@
             ],
             "description": "A (work-in-progress) PHP application framework",
             "support": {
-                "source": "https://github.com/darrenedale/bead-framework/tree/production"
+                "source": "https://github.com/darrenedale/bead-framework/tree/BEAD-163-Request-pre-processing"
             },
-            "time": "2023-11-04T20:53:14+00:00"
+            "time": "2023-11-30T22:31:58+00:00"
         },
         {
             "name": "psr/container",

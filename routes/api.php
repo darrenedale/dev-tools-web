@@ -3,7 +3,7 @@
 use App\Controllers\CodecsController;
 use App\Controllers\HashesController;
 use Bead\Contracts\Router;
-use Bead\WebApplication;
+use Bead\Core\WebApplication;
 
 /**
  * @var WebApplication $app

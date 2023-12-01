@@ -7,6 +7,7 @@ use App\Utilities\Base32;
 use App\Utilities\Base64;
 use App\Utilities\BinaryTextCodec;
 use App\Utilities\Hexit;
+use App\Utilities\UrlEncoding;
 use App\Utilities\UuEncoding;
 use App\WebApplication;
 use Bead\Contracts\Response;
@@ -153,6 +154,8 @@ class CodecsController
             "base32" => new Base32(),
             "base64" => new Base64(),
             "uuencoding" => new UuEncoding(),
+            "url" => new UrlEncoding(),
+            "hexits" => new Hexit(),
             default => throw new InvalidArgumentException("Unrecognised binary-to-text encoding algorithm '{$algorithm}'."),
         };
     }
