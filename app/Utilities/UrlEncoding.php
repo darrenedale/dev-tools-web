@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Utilities;
 
 class UrlEncoding extends BinaryTextCodec
@@ -9,11 +11,12 @@ class UrlEncoding extends BinaryTextCodec
      * @var string|null The encoded data.
      */
     private ?string $m_encoded = null;
+
     private ?string $m_raw = "";
 
     public function raw(): string
     {
-        if (!isset($this->m_raw)) {
+        if (null === $this->m_raw) {
             $this->m_raw = self::urlDecoded($this->m_encoded);
         }
 
@@ -28,7 +31,7 @@ class UrlEncoding extends BinaryTextCodec
 
     public function encoded(): string
     {
-        if (!isset($this->m_encoded)) {
+        if (null === $this->m_encoded) {
             $this->m_encoded = self::urlEncoded($this->m_raw);
         }
 
